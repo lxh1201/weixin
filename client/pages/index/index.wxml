@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+    <view wx:if="{{logged}}">
+      <navigator url="../addSchedule/addSchedule" open-type="navigate" class="uploader-text">
+        <text>登记日程</text>
+      </navigator>
+      <navigator url="../findSchedule/findSchedule" open-type="navigate" class="uploader-text">
+        <text>拼车</text>
+      </navigator>
+    </view>
+</view>
