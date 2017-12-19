@@ -4,7 +4,8 @@
     "pages/detailedSchedule/findDetail",
     "pages/detailedSchedule/addDetail",
     "pages/addSchedule/addSchedule",
-    "pages/findSchedule/findSchedule"
+    "pages/findSchedule/findSchedule",
+    "pages/myGroup/myGroup"
   ],
   "window":{
     "backgroundColor":"#F6F6F6",
