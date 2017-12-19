@@ -1,7 +1,13 @@
 <view class='container'>
-  <text class='heading'>快速添加出行日程</text>
+  <text class='heading'>添加出行日程</text>
   <view class='schedule'>
       <picker-view indicator-style="height: 50px;" bindchange="selectDate" value="{{value}}">
+        <picker-view-column>
+          <view wx:for="{{years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view wx:for="{{months}}">{{item}}</view>
+        </picker-view-column>
         <picker-view-column>
           <view wx:for="{{days}}">{{item}}</view>
         </picker-view-column>
@@ -21,5 +27,4 @@
     </label>
   </radio-group>
   <button class='litMargin'>添加日程</button>
-  <navigator url="../detailedSchedule/addDetail" open-type="navigate" class='detail'>添加详细日程</navigator>
 </view>

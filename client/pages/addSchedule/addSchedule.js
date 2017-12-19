@@ -1,5 +1,16 @@
 const date = new Date()
 
+const hours = []
+const minutes = []
+
+for (let i = 0; i < 24; i++) {
+  hours.push(i.toString() + "时")
+}
+
+for (let i = 0; i < 6; i++) {
+  minutes.push(i.toString() + "0分")
+}
+
 Page({
   /**
    * 页面的初始数据
@@ -8,31 +19,25 @@ Page({
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDate(),
-    time: "上午",
     days: ["今天", "明天", "后天"],
-    times: ["上午", "下午", "晚上"],
-    places: [{name: "南湖", id: 0}, {name: "浑南", id: 1}],
+    hour: date.getHours(),
+    hours: hours,
+    minute: parseInt(date.getMinutes() / 10) * 10,
+    minutes: minutes,
+    places: [{ name: "南湖", id: 0 }, { name: "浑南", id: 1 }],
+    value: [0, date.getHours(), parseInt(date.getMinutes() / 10)],
   },
 
   selectDate: function (e) {
     const val = e.detail.value
     var curDate = new Date();
     var date = new Date((curDate / 1000 + 86400 * val[0]) * 1000)
-    var tmp_time
-    if (val[1] == 0) {
-      tmp_time = "上午"
-    }
-    else if (val[1] == 1) {
-      tmp_time = "下午"
-    }
-    else {
-      tmp_time = "晚上"
-    }
     this.setData({
       year: date.getFullYear(),
       month: date.getMonth() + 1,
       day: date.getDate(),
-      time: tmp_time,
+      hour: val[1],
+      minute: val[2] * 10,
     })
   },
 
@@ -44,55 +49,55 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   }
 })

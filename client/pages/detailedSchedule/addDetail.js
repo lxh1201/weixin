@@ -1,38 +1,58 @@
 const date = new Date()
 
+const years = []
+const months = []
+const days = []
+const hours = []
+const minutes = []
+
+for (let i = date.getFullYear(); i < date.getFullYear() + 5; i++) {
+  years.push(i + "年")
+}
+
+for (let i = 1; i <= 12; i++) {
+  months.push(i + "月")
+}
+
+for (let i = 1; i <= 31; i++) {
+  days.push(i + "日")
+}
+
+for (let i = 0; i < 24; i++) {
+  hours.push(i + "时")
+}
+
+for (let i = 0; i < 60; i++) {
+  minutes.push(i + "分")
+}
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     year: date.getFullYear(),
+    years: years,
     month: date.getMonth() + 1,
+    months: months,
     day: date.getDate(),
-    time: "上午",
-    days: ["今天", "明天", "后天"],
-    times: ["上午", "下午", "晚上"],
+    days: days,
+    hour: date.getHours(),
+    hours: hours,
+    minute: date.getMinutes(),
+    minutes: minutes,
     places: [{ name: "南湖", id: 0 }, { name: "浑南", id: 1 }],
+    value: [0, date.getMonth(), date.getDate() - 1, date.getHours(), date.getMinutes()],
   },
 
   selectDate: function (e) {
     const val = e.detail.value
-    var curDate = new Date();
-    var date = new Date((curDate / 1000 + 86400 * val[0]) * 1000)
-    var tmp_time
-    if (val[1] == 0) {
-      tmp_time = "上午"
-    }
-    else if (val[1] == 1) {
-      tmp_time = "下午"
-    }
-    else {
-      tmp_time = "晚上"
-    }
     this.setData({
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-      time: tmp_time,
+      year: date.getFullYear() + val[0],
+      month: val[1] + 1,
+      day: val[2] + 1,
+      hour: val[3],
+      minute: val[4],
     })
   },
 

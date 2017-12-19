@@ -1,9 +1,10 @@
 {
   "pages":[
-    "pages/addSchedule/addSchedule",
     "pages/index/index",
-    "pages/addCgi/addCgi",
-    "pages/detailedSchedule/detailedSchedule"
+    "pages/detailedSchedule/findDetail",
+    "pages/detailedSchedule/addDetail",
+    "pages/addSchedule/addSchedule",
+    "pages/findSchedule/findSchedule"
   ],
   "window":{
     "backgroundColor":"#F6F6F6",

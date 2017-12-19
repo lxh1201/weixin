@@ -16,7 +16,7 @@ page {
 }
 
 .schedule picker-view {
-  width: 400rpx;
+  width: 750rpx;
   height: 500rpx;
 }
 
