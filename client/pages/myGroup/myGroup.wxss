@@ -39,3 +39,14 @@ page {
 .hideClass{
   display:none;
 }
+.title{
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  background-color:#E0FFFF;
+
+}
+.action{
+color: #2A53CD;
+text-align:right;
+float:right;
+}

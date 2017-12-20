@@ -8,10 +8,18 @@ Page({
   data: {
       userInfo:{},
       listShow: [
-        { title: "1", content: "123", show: false },
-        { title: "2", content: "123", show: false },
-        { title: "3", content: "123", show: false }
+        { title: "1", content: "123", show: false }       
       ],
+  },
+  creategroup: function () {
+    var newarray = [{
+      title: "name",
+      content: "123",
+      show: false
+    }];
+    this.setData({
+      'listShow': this.data.listShow.concat(newarray)
+    });
   },
   showContent: function (e) {
     var index = parseInt(e.currentTarget.dataset.index);
@@ -23,9 +31,26 @@ Page({
     })
 
   },
-  creategroup:function(e){
+  remove: function (e) {
 
+    var dataset = e.target.dataset;
+    var Index = dataset.index; 
+
+    this.data.listShow.splice(Index, 1);
+
+    this.setData({
+      listShow: this.data.listShow
+    });
   },
+  edit: function (e) {
+    var dataset = e.target.dataset;
+    var Index = dataset.index; 
+    this.data.list[Index].title = 'newname';
+    this.setData({
+      listShow: this.data.listShow
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
