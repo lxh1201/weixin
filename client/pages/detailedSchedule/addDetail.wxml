@@ -23,8 +23,8 @@
   <radio-group class="litMargin" bindchange="selectDestination">
     <label>目的地：</label>
     <label wx:for="{{places}}">
-      <radio value="{{item.id}}"/>{{item.name}}
+      <radio value="{{item.id}}" checked='{{item.checked}}'/>{{item.name}}
     </label>
   </radio-group>
-  <button class='litMargin'>添加日程</button>
+  <button class='litMargin' bindtap='submit'>添加日程</button>
 </view>

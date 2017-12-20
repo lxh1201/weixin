@@ -12,7 +12,7 @@ Page({
     btime: date.getHours() + ':' + date.getMinutes(),
     cdate: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
     ctime: date.getHours() + ':' + date.getMinutes(),
-    places: [{ name: "南湖", id: 0 }, { name: "浑南", id: 1 }],
+    places: [{ name: "南湖", id: 0, checked: true, }, { name: "浑南", id: 1, checked: false, }],
   },
 
   bindDateChange: function (e) {

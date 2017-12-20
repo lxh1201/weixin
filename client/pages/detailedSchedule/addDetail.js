@@ -1,3 +1,7 @@
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util.js')
+
 const date = new Date()
 
 const years = []
@@ -41,7 +45,8 @@ Page({
     hours: hours,
     minute: date.getMinutes(),
     minutes: minutes,
-    places: [{ name: "南湖", id: 0 }, { name: "浑南", id: 1 }],
+    places: [{ name: "南湖", id: 0, checked: true, }, { name: "浑南", id: 1, checked: false, }],
+    destination: 0,
     value: [0, date.getMonth(), date.getDate() - 1, date.getHours(), date.getMinutes()],
   },
 
@@ -57,7 +62,27 @@ Page({
   },
 
   selectDestination: function (e) {
-    console.log(e.detail.value)
+    this.setData({ destination: e.detail.value, })
+  },
+
+  submit: function () {
+    util.showBusy('上传中...')
+    var that = this
+    qcloud.request({
+      url: `${config.service.host}/weapp/addSchedule`,
+      data: {
+        times: that.data.year + '-' + that.data.month + '-' + that.data.day + ' ' + that.data.hour + ':' + that.data.minute,
+        destination: that.data.destination,
+      },
+      login: true,
+      success(result) {
+        util.showSuccess('上传完成')
+        console.log(result)
+      },
+      fail(error) {
+        util.showModel('上传失败', error);
+      }
+    })
   },
 
   /**

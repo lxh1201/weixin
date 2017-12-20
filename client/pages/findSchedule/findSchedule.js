@@ -11,7 +11,7 @@ Page({
     time: "上午",
     days: ["今天", "明天", "后天"],
     times: ["上午", "下午", "晚上"],
-    places: [{ name: "南湖", id: 0 }, { name: "浑南", id: 1 }],
+    places: [{ name: "南湖", id: 0, checked: true, }, { name: "浑南", id: 1, checked: false, }],
   },
 
   selectDate: function (e) {
