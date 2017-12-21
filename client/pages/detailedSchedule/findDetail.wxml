@@ -33,5 +33,5 @@
       <radio value="{{item.id}}" checked='{{item.checked}}'/>{{item.name}}
     </label>
   </radio-group>
-  <button class='litMargin'>找车</button>
+  <button class='litMargin' bindtap='submit'>找车</button>
 </view>

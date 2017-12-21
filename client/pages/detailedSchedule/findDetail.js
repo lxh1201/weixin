@@ -1,3 +1,7 @@
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util.js')
+
 const date = new Date()
 
 Page({
@@ -13,6 +17,7 @@ Page({
     cdate: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
     ctime: date.getHours() + ':' + date.getMinutes(),
     places: [{ name: "南湖", id: 0, checked: true, }, { name: "浑南", id: 1, checked: false, }],
+    destination: 0,
   },
 
   bindDateChange: function (e) {
@@ -40,7 +45,29 @@ Page({
   },
 
   selectDestination: function (e) {
+    this.setData({ destination: e.detail.value, })
+  },
 
+  submit: function () {
+    util.showBusy('查询中...')
+    var that = this
+    qcloud.request({
+      url: `${config.service.host}/weapp/findSchedule`,
+      data: {
+        atimes: that.data.adate + ' ' + that.data.atime,
+        btimes: that.data.bdate + ' ' + that.data.btime,
+        ctimes: that.data.cdate + ' ' + that.data.ctime,
+        destination: that.data.destination,
+      },
+      login: true,
+      success(result) {
+        util.showSuccess('查询完成')
+        console.log(result)
+      },
+      fail(error) {
+        util.showModel('上传失败', error);
+      }
+    })
   },
 
   /**

@@ -1,3 +1,7 @@
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util.js')
+
 const date = new Date()
 
 Page({
@@ -8,10 +12,12 @@ Page({
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDate(),
+    timeNo: 0,
     time: "上午",
     days: ["今天", "明天", "后天"],
     times: ["上午", "下午", "晚上"],
     places: [{ name: "南湖", id: 0, checked: true, }, { name: "浑南", id: 1, checked: false, }],
+    destination: 0,
   },
 
   selectDate: function (e) {
@@ -33,11 +39,51 @@ Page({
       month: date.getMonth() + 1,
       day: date.getDate(),
       time: tmp_time,
+      timeNo: val[1],
     })
   },
 
   selectDestination: function (e) {
-    console.log(e.detail.value)
+    this.setData({ destination: e.detail.value, })
+  },
+
+  submit: function () {
+    util.showBusy('查询中...')
+    var that = this
+    var date = that.data.year + '-' + that.data.month + '-' + that.data.day
+    var atime, btime, ctime
+    if (that.data.timeNo == 0) {
+      atime = '06:00'
+      btime = '06:00'
+      ctime = '12:00'
+    }
+    else if (that.data.timeNo == 1) {
+      atime = '12:00'
+      btime = '12:00'
+      ctime = '18:00'
+    }
+    else {
+      atime = '18:00'
+      btime = '18:00'
+      ctime = '23:00'
+    }
+    qcloud.request({
+      url: `${config.service.host}/weapp/findSchedule`,
+      data: {
+        atimes: date + ' ' + atime,
+        btimes: date + ' ' + btime,
+        ctimes: date + ' ' + ctime,
+        destination: that.data.destination,
+      },
+      login: true,
+      success(result) {
+        util.showSuccess('查询完成')
+        console.log(result)
+      },
+      fail(error) {
+        util.showModel('上传失败', error);
+      }
+    })
   },
 
   /**

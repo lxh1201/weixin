@@ -17,6 +17,6 @@
       <radio value="{{item.id}}" checked='{{item.checked}}'/>{{item.name}}
     </label>
   </radio-group>
-  <button class='litMargin'>寻找可用车</button>
+  <button class='litMargin' bindtap='submit'>寻找可用车</button>
   <navigator url="../detailedSchedule/findDetail" open-type="navigate" class='detail'>添加详细信息</navigator>
 </view>

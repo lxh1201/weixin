@@ -1,4 +1,5 @@
 const qcloud = require('../qcloud.js')
+const { mysql } = require('../qcloud.js')
 
 module.exports = async (req, res) => {
   qcloud.auth.validation(req).then(result => {
@@ -16,7 +17,6 @@ module.exports = async (req, res) => {
     else {
       des = 'scheDesHunnan'
     }
-    const {mysql} = require('../qcloud.js')
     mysql(des).insert({
       openId: result.userinfo.openId,
       time: req.query.times,

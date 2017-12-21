@@ -33,5 +33,6 @@ router.get('/message', controllers.message.get)
 router.post('/message', controllers.message.post)
 
 router.get('/addSchedule', controllers.addSchedule)
+router.get('/findSchedule', controllers.findSchedule)
 
 module.exports = router
