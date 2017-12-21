@@ -6,12 +6,18 @@
         ></image>
        <text class="nickname">{{userInfo.nickName}}</text>
     </view>
-    <block wx:for="{{listShow}}">
-    <view style="text-align:center;">
-    <view style="background:#eee;" bindtap="showContent"  data-index="{{index}}" >{{item.title}}</view>
-    <view style="background:#ccc;" class="{{item.show ? 'showClass' : 'hideClass'}}">{{item.content}}</view>
+  <view wx:for="{{listShow}}">
+    <view >
+      <view  bindtap="showContent"  data-index="{{index}}" class="title" >{{item.title}}
+        <view class="action" >
+         <text bindtap="remove" data-index="{{index}}" class="marlr10">删除  </text>   
+         <text bindtap="edit" data-index="{{index}}" >修改</text>
+        </view>
+      </view>
+      <view  class="{{item.show ? 'showClass' : 'hideClass'}}">{{item.content}}
+      </view>
     </view>
-    </block>
+  </view>
 </view>
  <button class="createg" bindtap='creategroup'>创建圈子</button>
  <button class="researchg" bindtap='researchgroup'>寻找圈子</button>

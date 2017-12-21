@@ -10,5 +10,8 @@
        <navigator url="../myGroup/myGroup" open-type="navigate" class="uploader-text">
         <button>我的圈子</button>
         </navigator>
+        <navigator url="../myChart/myChart" open-type="navigate" class="uploader-text">
+        <button>行程查询</button>
+        </navigator>
     </view>
 </view>
