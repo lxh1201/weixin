@@ -1,17 +1,45 @@
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util.js')
+
 Page({
   data: {
-    listData: [
-      { "code": "01", "place": "place1", "time": "time1" },
-      { "code": "02", "place": "place2", "time": "time2" },
-      { "code": "03", "place": "place3", "time": "time3" },
-      { "code": "04", "place": "place4", "time": "time4" },
-      { "code": "05", "place": "place5", "time": "time5" },
-      { "code": "06", "place": "place6", "time": "time6" },
-      { "code": "07", "place": "place7", "time": "time7" }
-    ]
+    listData: []
   },
   onLoad: function () {
-    console.log('onLoad')
+    util.showBusy('查询中...')
+    var that = this
+    qcloud.request({
+      url: `${config.service.host}/weapp/userScheInfo`,
+      login: true,
+      success(result) {
+        util.showSuccess('上传完成')
+        const data = []
+        var nanhu = result.data.data.schesNanhu
+        if (!nanhu) {
+          nanhu = []
+        }
+        var hunnan = result.data.data.schesHunnan
+        if (!hunnan) {
+          hunnan = []
+        }
+        var index = 1
+        for (let i = 0; i < nanhu.length; i++) {
+          data.push({ code: index, place: "南湖", time: nanhu[i]})
+          index++;
+        }
+        for (let i = 0; i < hunnan.length; i++) {
+          data.push({ code: index, place: "浑南", time: hunnan[i] })
+          index++;
+        }
+        that.setData({
+          listData: data,
+        })
+      },
+      fail(error) {
+        util.showModel('上传失败', error);
+      }
+    })
   }
 
 })

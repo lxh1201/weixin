@@ -62,7 +62,22 @@ Page({
       login: true,
       success(result) {
         util.showSuccess('查询完成')
-        console.log(result)
+        var tmp = result.data.data.bestTime
+        var adate = ''
+        var bdate = ''
+        var cdate = ''
+        if (tmp.length >= 1) {
+          adate = tmp[0]
+        }
+        if (tmp.length >= 2) {
+          bdate = tmp[1]
+        }
+        if (tmp.length >= 3) {
+          cdate = tmp[2]
+        }
+        wx.navigateTo({
+          url: '../showResult/showResult?adate=' + adate + '&bdate=' + bdate + '&cdate=' + cdate + '&num=' + tmp.length,
+        })
       },
       fail(error) {
         util.showModel('上传失败', error);

@@ -19,7 +19,7 @@ module.exports = async (ctx, next) => {
   var sches = await mysql(des).select('*').where('time', '>=', atimes).andWhere('time', '<=', ctimes)
 
   if (sches.length == 0) {
-    ctx.state.data = { bestTime: NaN }
+    ctx.state.data = { bestData: [] }
     return
   }
 
@@ -61,15 +61,15 @@ module.exports = async (ctx, next) => {
   }
 
   var p1 = best, p2 = best + 1
-  const bestTime = []
+  const bestData = []
   for (let i = 0; i < 3; i++) {
     if (p1 < 0 || p2 >= sches.length) {
       if (p1 >= 0) {
-        bestTime.push(formatDate(sches[p1].time))
+        bestData.push(sches[p1])
         p1 -= 1
       }
       if (p2 < sches.length) {
-        bestTime.push(formatDate(sches[p2].time))
+        bestData.push(sches[p2])
         p2 += 1
       }
       continue
@@ -78,15 +78,15 @@ module.exports = async (ctx, next) => {
     var b = new Date(sches[p2].time)
     var c = best_time
     if (b - c >= c - a && p1 >= 0) {
-      bestTime.push(formatDate(sches[p1].time))
+      bestData.push(sches[p1])
       p1 -= 1
     }
     else if (p2 <= sches.length - 1) {
-      bestTime.push(formatDate(sches[p2].time))
+      bestData.push(sches[p2])
       p2 += 1
     }
     else if (p1 >= 0) {
-      bestTime.push(formatDate(sches[p1].time))
+      bestData.push(sches[p1])
       p1 -= 1
     }
     else {
@@ -94,5 +94,14 @@ module.exports = async (ctx, next) => {
     }
   }
 
-  ctx.state.data = { bestTime: bestTime}
+  const userName = []
+  const bestTime = []
+
+  for (let i = 0; i < bestData.length; i++) {
+    var tmp = await mysql('cSessionInfo').select('user_info').where('open_id', bestData[i].openId)
+    userName.push(tmp[0].user_info)
+    bestTime.push(formatDate(bestData[i].time))
+  }
+
+  ctx.state.data = { bestTime: bestTime, userName: userName}
 }
